@@ -6,3 +6,13 @@
 	// Exporting all models from here seems like a good idea!
 
 // This is also probably a good place for you to set up your associations
+
+const Campuses = require('./campuses');
+const Students = require('./students');
+
+Campuses.belongsToMany(Students);
+
+module.exports = {
+	Campuses,
+	Students
+}

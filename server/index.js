@@ -1,4 +1,4 @@
-'use strict'; 
+'use strict';
 
 const express = require('express');
 const path = require('path');
@@ -19,8 +19,10 @@ app.use(express.static(path.join(__dirname, '../public')));
 
 app.use('/api', require('./api')); // include our routes!
 
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../public/index.html'));
+
+app.get('/', (req, res) => {
+  res.send("Welcome Home")
+  // res.sendFile(path.join(__dirname, '../public/index.html'));
 }); // Send index.html for any other requests
 
 //error handling middleware
