@@ -1,25 +1,25 @@
-const db = require('../db');
-const DataTypes = db.Sequelize;
+const db = require('../index');
+const Sequelize = require('sequelize');
 
-const Campuses = db.define('playlist', {
+
+
+const Campuses = db.define('campuses', {
 
   name: {
     type: Sequelize.STRING,
-    allowNull: false
+    allowNull: false,
+    validate: {
+            notEmpty: true
+        }
   },
-  // imageUrl: {
-  //   type: DataTypes.VIRTUAL,
-  //   get: function () {
-  //     return `/api/albums/${this.id}/image`;
-  //   }
-  // },
-  // description: {
-
-  // }
+  imageUrl: {
+    type: Sequelize.STRING,
+    defaultValue: 'http://i.dailymail.co.uk/i/pix/2016/11/25/05/3AAB1D1300000578-0-image-a-100_1480050515605.jpg'
+  },
+  description: {
+    type: Sequelize.TEXT
+  }
 })
 
 
-module.exports = {
-  Campuses,
-  db
-};
+module.exports = Campuses

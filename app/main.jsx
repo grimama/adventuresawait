@@ -1,14 +1,19 @@
 'use strict'
 import React from 'react'
-import {render} from 'react-dom'
 import { Provider } from 'react-redux'
+import ReactDOM from 'react-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
+import { Root } from './components'
+import axios from 'axios'
 
 import store from './store'
-import Root from './components/Root'
 
-render (
+ReactDOM.render(
   <Provider store={store}>
-    <Root/>
+    <Router>
+      <Root />
+    </Router>
   </Provider>,
   document.getElementById('main')
 )
+

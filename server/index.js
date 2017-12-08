@@ -19,10 +19,15 @@ app.use(express.static(path.join(__dirname, '../public')));
 
 app.use('/api', require('./api')); // include our routes!
 
+// app.get('/api/stupidcall', (req, res, next) => {
+//   Studnets.getONe()
+//     .then(res.json())
+//     .catch(next
+// })
 
-app.get('/', (req, res) => {
-  res.send("Welcome Home")
-  // res.sendFile(path.join(__dirname, '../public/index.html'));
+app.get('*', (req, res) => {
+  //res.send("Welcome Home")
+  res.sendFile(path.join(__dirname, '../public/index.html'));
 }); // Send index.html for any other requests
 
 //error handling middleware

@@ -1,12 +1,25 @@
+// /api/campuses
 const express = require('express');
-const router = express.Router();
+const router = new express.Router();
 const db = require('../db')
-// const models = require('../../db/models');
+const models = require('../db/models');
+const Campuses = models.Campuses;
 
 
-router.get('/', (req, res) => res.send({hello: 'Home'}));
+router.get('/', (req, res, next) => {
+  Campuses.findAll()
+  .then(campuses =>
+    res.json(campuses))
+})
 
-router.get('/:campusName', (req, res) => res.send(req.params.campusName));
+router.get('/:campusId', (req, res) => {
+  Campuses.findOne({
+    where: {id: req.params.campusId}
+  })
+  .then(foundCampus => {
+    res.json(foundCampus)
+  })
+})
 
 
 

@@ -9,8 +9,10 @@
 
 const Campuses = require('./campuses');
 const Students = require('./students');
+const Sequelize = require('sequelize');
 
-Campuses.belongsToMany(Students);
+//Campuses.belongsToMany(Students);
+Students.belongsTo(Campuses, {as: 'campus'})
 
 module.exports = {
 	Campuses,
