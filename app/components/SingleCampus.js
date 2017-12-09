@@ -17,16 +17,16 @@ export default class SingleCampus extends Component {
     }
 
     componentDidMount(){
-      
+
       const campusId = this.props.match.params.campusId;
       this.fetchCampus(campusId)
     }
 
     componentWillReceiveProps (nextProps) {
       const nextCampusId = nextProps.match.params.campusId;
-      const currentAlbumId = this.props.match.params.campusId;
+      const currentCampusId = this.props.match.params.campusId;
       if (nextCampusId !== currentCampusId)
-        this.fetchAlbum(nextCampusId);
+        this.fetchCampus(nextCampusId);
     }
 
   render(){

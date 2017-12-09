@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-//import { connect } from 'react-redux'
+import { connect } from 'react-redux'
 //import { withRouter, NavLink } from 'react-router-dom';
 
 
-export default class StatefulCampuses extends Component {
+export default class AllCampuses extends Component {
 
-  constructor(){
-    super()
+  constructor(props){
+    super(props)
     this.state = {
       campuses: []
     }
@@ -23,11 +23,16 @@ export default class StatefulCampuses extends Component {
     });
   }
 
-  render(){
 
+  render() {
+    const campuses = this.state.campuses;
     return (
       <div>
         <h1>CAMPUSES</h1>
+        <div>
+          <button>
+            <Link to="/campuses/addcampus">Add Campus</Link>
+          </button></div>
         <div>
           {
             this.state.campuses.map(campus => (

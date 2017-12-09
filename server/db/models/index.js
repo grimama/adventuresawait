@@ -7,14 +7,13 @@
 
 // This is also probably a good place for you to set up your associations
 
-const Campuses = require('./campuses');
-const Students = require('./students');
-const Sequelize = require('sequelize');
+const Campus = require('./campus');
+const Student = require('./student');
 
-//Campuses.belongsToMany(Students);
-Students.belongsTo(Campuses, {as: 'campus'})
+Student.belongsTo(Campus);
+Campus.hasMany(Student);
 
 module.exports = {
-	Campuses,
-	Students
+	Campus,
+	Student
 }

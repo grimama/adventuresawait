@@ -6,7 +6,7 @@ render(){
   return(
       <div>
         <button>
-          <Link to="/Home">HOME</Link>
+          <Link to="/">HOME</Link>
         </button>
         <button>
           <Link to="/campuses">CAMPUSES</Link>

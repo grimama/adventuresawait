@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
-import NavBar from './NavBar';
-import Home from './Home';
-import AllCampuses from './AllCampuses';
 import axios from 'axios'
 
-// import store from '../store';
+import Home from './Home';
+import NavBar from './NavBar';
+import AllCampuses from './AllCampuses';
 import SingleCampus from './SingleCampus';
-// import Students from './Students';
-// import SingleStudent from './SingleStudent';
+import AllStudents from './AllStudents';
+import SingleStudent from './SingleStudent';
+import AddNewCampus from './AddNewCampus';
+// import store from '../store';
 
 export default class Root extends Component {
 
@@ -18,10 +19,13 @@ export default class Root extends Component {
         <NavBar />
         <main>
           <Switch>
-            <Route exact path="/home" component={Home} />
+            <Route exact path="/" component={Home} />
             <Route exact path="/campuses" component={AllCampuses} />
-            <Route exact path="/campuses/:campusId" component={SingleCampus} />
-            <Redirect to='/home' />
+            <Route exact path="/campuses/addcampus" component={AddNewCampus} />
+            <Route path="/campuses/:campusId" component={SingleCampus} />
+            <Route exact path="/students" component={AllStudents} />
+            <Route path="/students/:studentId" component={SingleStudent} />
+            <Redirect to="/" />
           </Switch>
         </main>
       </div>
@@ -29,8 +33,4 @@ export default class Root extends Component {
   }
 }
 
-
-{/*
-            <Route exact path="/students" component={Students} />
-            <Route exact path="/students/:studentId" component={SingleStudent} /> */}
 

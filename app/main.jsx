@@ -3,7 +3,7 @@ import React from 'react'
 import { Provider } from 'react-redux'
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
-import { Root } from './components'
+import Root from './components/Root'
 import axios from 'axios'
 
 import store from './store'

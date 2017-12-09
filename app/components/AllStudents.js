@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom'
 
-export default class Students extends Component{
+export default class AllStudents extends Component{
+
   constructor(){
     super()
     this.state={
@@ -13,20 +15,23 @@ export default class Students extends Component{
     axios.get('/api/students')
     .then(res => res.data)
     .then(students => {
-      this.setState({students: students})
+      this.setState({ students })
     })
   }
 
   render(){
+    const students = this.state.students;
+    
     return(
       <div>
-        <h1>Students</h1>
+        <h1>STUDENTS</h1>
         <div>
           {
-            this.state.students.map(student => {
+            students.map(student => {
               return(
                 <div key={student.id}>
-                  <a href={`#/students/${student.id}`}>{student.fullName}</a>
+                  <Link to={`/students/${student.id}`}>{student.fullName}
+                  </Link>
                   <p>{student.email}</p>
                   <p>{student.gpa}</p>
                   <p>{student.campusId}</p>
