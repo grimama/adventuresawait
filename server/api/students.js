@@ -30,33 +30,31 @@ router.get('/:studentId', (req, res, next) => {
     .catch(next)
 });
 
+//update one student by ID
+router.put('/:studentId', (req, res, next)=>{
+  Student.update(
+    {
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
+      email: req.body.email,
+      campusId: req.body.campusId
+    },
+    { where: { id: req.params.studentId } },
+    { returning: true }
+  )
+    .then(() => Student.findById(req.params.studentId))
+    .then(student => {
+      res.status(201).send(student)
+    })
+  })
+
+router.delete('/:studentId', (req, res, next)=>{
+  Student.destroy(
+    { where: { id: req.params.studentId } }
+  )
+    .then(() => res.sendStatus(204))
+    .catch(next)
+})
+
 
 module.exports = router;
-
-
-// // update student info
-// .put((req, res, next) => {
-//   Student.update(
-//     {
-//       name: req.body.name,
-//       email: req.body.email,
-//       campusId: req.body.campusId
-//     },
-//     { where: { id: req.params.studentId } },
-//     { returning: true }
-//   )
-//     .then(() => Student.findById(req.params.studentId))
-//     .then(student => {
-//       res.status(201).send(student)
-//     })
-//     .catch(next)
-// })
-
-// // delete student
-// .delete((req, res, next) => {
-//   Student.destroy(
-//     { where: { id: req.params.studentId } }
-//   )
-//     .then(() => res.sendStatus(204))
-//     .catch(next)
-// })

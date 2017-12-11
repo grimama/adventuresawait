@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import axios from 'axios'
 import { connect } from 'react-redux';
 import { postCampus } from '../reducers';
 
 
-export default class AddNewCampus extends Component{
+export class AddNewCampus extends Component{
   constructor(props){
     super(props)
     this.state={
@@ -19,9 +18,8 @@ export default class AddNewCampus extends Component{
   }
 
   handleSubmit(event, state) {
-
-    axios.post('/api/campuses', state)
-    .then(res => {console.log('added successfully')})
+    this.setState({name: '', imageUrl: '', description: ''});
+    this.props.handleSubmit(event, state);
   }
 
   handleChangeName(event) {
@@ -38,47 +36,44 @@ export default class AddNewCampus extends Component{
 
 
   render(){
+    console.log('state', this.state)
     return(
       <form onSubmit={(event) => this.handleSubmit(event, this.state)}>
-        <div className="form-group">
+        <div>
           <fieldset>
             <legend>New Campus</legend>
-            <div className="form-group">
-              <label className="col-xs-2 control-label">Name</label>
-              <div className="col-xs-10">
+            <div>
+              <label>Name</label>
+              <div>
                 <input
                   value={this.state.name}
-                  className="form-control"
                   type="text"
-                  onChange={this.handleChangeName}
-                />
+                  onChange={this.handleChangeName} />
               </div>
             </div>
-            <div className="form-group">
-              <label className="col-xs-2 control-label">Description</label>
-              <div className="col-xs-10">
+            <div>
+              <label>Description</label>
+              <div>
                 <input
-                  value={this.state.image}
-                  className="form-control"
-                />
+                  value={this.state.description}
+                  type="text"
+                  onChange={this.handleChangeDescription} />
               </div>
             </div>
-            <div className="form-group">
-              <label className="col-xs-2 control-label">Image File Name</label>
-              <div className="col-xs-10">
+            <div>
+              <label>Image File Name</label>
+              <div>
                 <input
-                  value={this.state.image}
-                  className="form-control"
-                />
+                  value={this.state.imageUrl}
+                  type="text"
+                  onChange={this.handleChangeImage} />
               </div>
             </div>
-            <div className="form-group">
-              <div className="col-xs-10 col-xs-offset-2">
+            <div>
+              <div>
                 <button
                   type="submit"
-                  className="btn btn-success"
-                  disabled={this.state.name.length ? false : true}
-                >
+                  disabled={this.state.name.length ? false : true} >
                   Add Campus
                   </button>
               </div>
@@ -86,10 +81,18 @@ export default class AddNewCampus extends Component{
           </fieldset>
         </div>
       </form>
-
-
     )
   }
-
-
 }
+
+const mapDispatchToProps = function(dispatch, ownProps){
+  return{
+    handleSubmit: function(event, state){
+      event.preventDefault();
+      dispatch(postCampus(state, ownProps.history))
+    }
+  }
+}
+
+const AddNewCampusContainer = connect(null, mapDispatchToProps)(AddNewCampus);
+export default AddNewCampusContainer;

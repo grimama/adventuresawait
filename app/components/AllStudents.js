@@ -1,30 +1,38 @@
 import React, {Component} from 'react';
-import axios from 'axios';
 import { Link } from 'react-router-dom'
+import { connect } from 'react-redux';
+//import { chooseStudent, chooseCampus } from '../reducers'
 
-export default class AllStudents extends Component{
 
-  constructor(){
-    super()
-    this.state={
-      students: []
-    }
+export class AllStudents extends Component{
+
+  constructor(props){
+    super(props)
+    this.findCampus = this.findCampus.bind(this)
   }
 
-  componentDidMount(){
-    axios.get('/api/students')
-    .then(res => res.data)
-    .then(students => {
-      this.setState({ students })
-    })
+  findCampus(studentCampuseId){
+    const campuses = this.props.campuses
+    var foundCampus = {}
+    campuses.filter(campus => {
+        if(campus.id === studentCampuseId){
+          foundCampus = campus
+        }
+      })
+    return foundCampus.name
   }
 
   render(){
-    const students = this.state.students;
-    
+    console.log('props', this.props.campuses)
+    const students = this.props.students;
     return(
       <div>
         <h1>STUDENTS</h1>
+        <div>
+            <button>
+              <Link to="/students/addstudent">Add Student</Link>
+              </button>
+        </div>
         <div>
           {
             students.map(student => {
@@ -32,9 +40,9 @@ export default class AllStudents extends Component{
                 <div key={student.id}>
                   <Link to={`/students/${student.id}`}>{student.fullName}
                   </Link>
-                  <p>{student.email}</p>
-                  <p>{student.gpa}</p>
-                  <p>{student.campusId}</p>
+                  <p>email: {student.email}</p>
+                  <p>GPA: {student.gpa}</p>
+                  <p>School: {this.findCampus(student.campusId)}</p>
                   <p>----------------------</p>
                 </div>
               )
@@ -46,3 +54,12 @@ export default class AllStudents extends Component{
   }
 }
 
+const mapStateToProps = function(state){
+  return {
+    students: state.students,
+    campuses: state.campuses
+  }
+}
+
+const StudentsContainer = connect(mapStateToProps)(AllStudents);
+export default StudentsContainer;

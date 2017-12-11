@@ -4,6 +4,7 @@ const router = new express.Router();
 const db = require('../db')
 const models = require('../db/models');
 const Campus = models.Campus;
+const Student = models.Student;
 
 //get all campuses
 router.get('/', (req, res, next) => {
@@ -12,7 +13,7 @@ router.get('/', (req, res, next) => {
     .catch(next)
 })
 
-//Post a new Campus
+//post a new Campus
 router.post('/', (req, res, next) => {
   Campus.create(req.body)
     .then((newCampus) => res.json(newCampus))
@@ -26,37 +27,45 @@ router.get('/:campusId', (req, res, next) => {
     .catch(next)
 })
 
+//update a single campus by ID
+router.put('/:campusId', (req, res, next) => {
+  Campus.update(
+    {
+      name: req.body.name,
+      imageUrl: req.body.imageUrl,
+      description: req.body.description
+    },
+    { where: { id: req.params.campusId } }
+  )
+    .then((res) => {
+      return Campus.findById(req.params.campusId)
+    })
+    .then(campus => {
+      res.status(201).send(campus)
+    })
+    .catch(next)
+})
+
+//delete a single Campus by ID
+router.delete('/:campusId', (req, res, next) => {
+  Campus.destroy(
+    { where: { id: req.params.campusId }}
+  )
+    .then(() => res.sendStatus(204))
+    .catch(next)
+})
 
 
+//get all students in a campus
+router.get('/:campusId/students', (req, res, next) =>{
+  Student.findAll({
+    where: {
+      campusId: req.params.campusId
+    }
+  })
+    .then((students) => res.status(200).send(students))
+    .catch(next)
+})
 
 
 module.exports = router;
-
-
-
-// // update campus info
-// .put((req, res, next) => {
-//   Campus.update(
-//     {
-//       name: req.body.name,
-//       image: req.body.image
-//     },
-//     { where: { id: req.params.campusId } }
-//   )
-//     .then((res) => {
-//       return Campus.findById(req.params.campusId)
-//     })
-//     .then(campus => {
-//       res.status(201).send(campus)
-//     })
-//     .catch(next)
-// })
-
-// // delete campus
-// .delete((req, res, next) => {
-//   Campus.destroy(
-//     { where: { id: req.params.campusId }, individualHooks: true }
-//   )
-//     .then(() => res.sendStatus(204))
-//     .catch(next)
-// })
