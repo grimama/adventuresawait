@@ -13,7 +13,6 @@ p{
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: 100px;
-  
 }
 
 
@@ -53,9 +52,7 @@ button{
 .homeImage{
   height: 300px;;
 }
-.instagramImage{
-  height: 25px;
-}
+
 
 /* SCUBA */
 
@@ -67,7 +64,7 @@ button{
 /* CYCLING */
 
 .Cycling{
-
+  margin-bottom: 50px;
 }
 
 .cyclingImages{
@@ -116,12 +113,20 @@ button{
 /* Footer */
 
 .Footer{
+  position: fixed;
   background-color: pink;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
-  position:fixed;
-  left:0px;
   bottom:0px;
-  height:30px;
+  height:50px;
   width:100%;
 }
+
+.badgeLink{
+  height: 50px;
+}
+
+.badges{
+  display: inline-block;
+}
+

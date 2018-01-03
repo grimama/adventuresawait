@@ -8,6 +8,7 @@
     "start": "node main",
     "seed": "node seed.js"
   },
+  
   "keywords": [
     "react",
     "redux",
