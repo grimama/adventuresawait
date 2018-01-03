@@ -5,5 +5,5 @@ node_modules/*
 public/bundle.js
 public/bundle.js.map
 
-# NPM errors
+# NPM error
 npm-debug.log
