@@ -1,7 +1,7 @@
 {
-  "name": "seniorproject",
+  "name": "amandasadventures",
   "version": "0.0.1",
-  "description": "A review time project",
+  "description": "",
   "main": "index.js",
   "scripts": {
     "start:dev": "webpack -w & nodemon main",
